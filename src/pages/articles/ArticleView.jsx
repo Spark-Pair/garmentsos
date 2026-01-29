@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Edit, Trash2, Printer, Calendar, Tag, Box, Wallet, ImageIcon, Maximize2, Layers, Activity } from 'lucide-react';
+import { Edit, Trash2, Printer, Calendar, Tag, Box, Wallet, ImageIcon, Maximize2, Layers, Activity, X } from 'lucide-react';
 import { articlesAPI } from '../../services/api';
 import { MetricTile, InfoRow } from '../../components/ui/Card'; 
 import { Button, ConfirmationModal, Loader, PageHeader } from '../../components/ui';

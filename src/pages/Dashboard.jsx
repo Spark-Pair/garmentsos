@@ -70,7 +70,7 @@ const Dashboard = () => {
               
               <div className="p-3">
                 {recentArticles.map((article) => (
-                  <Link key={article._id} to={`/articles/view/${article._id}`}
+                  <Link key={article.id} to={`/articles/view/${article.id}`}
                     className="flex items-center gap-4 p-3.5 hover:pr-6 hover:bg-slate-100 rounded-2xl transition-all duration-300 group/row border border-transparent hover:border-slate-200"
                   >
                     <div className="w-12 h-12 rounded-xl font-semibold flex items-center justify-center border border-slate-300 transition-all duration-300 group-hover/row:scale-105 group-hover/row:bg-slate-900 group-hover/row:text-slate-50">

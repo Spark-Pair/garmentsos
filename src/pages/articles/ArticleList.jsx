@@ -85,7 +85,7 @@ const Articles = () => {
               <LoadingRow colSpan={7} rows={10} />
             ) : articles.length > 0 ? (
               articles.map((article) => (
-                <tr key={article._id} className="border-b border-slate-200 hover:bg-slate-50 transition-all duration-300">
+                <tr key={article.id} className="border-b border-slate-200 hover:bg-slate-50 transition-all duration-300">
                   <td className="px-6 py-3.5 font-medium text-slate-700">{article.article_no}</td>
                   <td className="px-6 py-3.5 text-slate-600">{article.season}</td>
                   <td className="px-6 py-3.5 text-slate-600">{article.size}</td>
@@ -105,19 +105,19 @@ const Articles = () => {
                   <td className="px-6 py-3.5 text-center">
                     <div className="flex justify-center gap-2">
                       <button 
-                        onClick={() => navigate(`view/${article._id}`)}
+                        onClick={() => navigate(`view/${article.id}`)}
                         className="p-1.5 text-blue-500 hover:text-blue-600 transition-all duration-300"
                       >
                         <Eye size={18} />
                       </button>
                       <button 
-                        onClick={() => navigate(`edit/${article._id}`)}
+                        onClick={() => navigate(`edit/${article.id}`)}
                         className="p-1.5 text-amber-500 hover:text-amber-600 transition-all duration-300"
                       >
                         <Edit size={18} />
                       </button>
                       <button 
-                        onClick={() => setDeleteId(article._id)}
+                        onClick={() => setDeleteId(article.id)}
                         className="p-1.5 text-red-500 hover:text-red-600 transition-all duration-300"
                       >
                         <Trash2 size={18} />

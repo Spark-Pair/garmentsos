@@ -67,16 +67,20 @@ function App() {
       </Routes>
 
       <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
+        position="bottom-right" // Modern apps mein bottom-right zyada clean lagta hai
+        autoClose={4000}
+        hideProgressBar={true} // Progress bar aksar UI ko cluttered banati hai
         newestOnTop
         closeOnClick
+        pauseOnFocusLoss
+        draggable
         pauseOnHover
         theme="light"
-        toastStyle={{
-          borderRadius: '12px',
-        }}
+        // Custom class for extra styling control
+        toastClassName={() => 
+          "relative flex px-5 py-3.5 rounded-2xl justify-between overflow-hidden cursor-pointer bg-white border border-slate-300 mb-3"
+        }
+        bodyClassName={() => "flex text-sm font-medium text-slate-800 uppercase items-center p-0"}
       />
     </>
   );

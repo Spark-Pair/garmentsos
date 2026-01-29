@@ -54,6 +54,7 @@ export const usersAPI = {
   delete: (id) => api.delete(`/users/${id}`)
 };
 
+
 // Articles API
 export const articlesAPI = {
   getAll: (params) => api.get('/articles', { params }),

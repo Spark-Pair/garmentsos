@@ -76,3 +76,52 @@ input[type="checkbox"] {
     display: none !important;
   }
 }
+
+/* Toast Container Logic */
+.Toastify__toast--animate {
+  /* Fast duration but with bounce space */
+  animation-duration: 0.45s !important; 
+}
+
+/* Entry: Bottom se uper aate waqt halka sa bounce */
+@keyframes toastBounceIn {
+  0% { 
+    opacity: 0; 
+    transform: translateY(100%) scale(0.9); 
+  }
+  70% { 
+    /* Target se thora uper (Overshoot) */
+    transform: translateY(-10px) scale(1.02); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+/* Exit: Speed se gayab hona */
+@keyframes toastSnapOut {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.8) translateY(20px); }
+}
+
+/* Applying to React Toastify Classes */
+.Toastify__bounce-enter--bottom-right,
+.Toastify__bounce-enter--top-right {
+  animation-name: toastBounceIn;
+  /* cubic-bezier(0.175, 0.885, 0.32, 1.275) is the magic for bounce */
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.Toastify__bounce-exit--bottom-right,
+.Toastify__bounce-exit--top-right {
+  animation-name: toastSnapOut;
+  animation-timing-function: ease-in !important;
+}
+
+/* Layout cleaning */
+.Toastify__toast {
+  border-radius: 16px !important;
+  margin-bottom: 12px !important;
+  overflow: visible !important; /* Bounce ke liye space chahiye */
+}
