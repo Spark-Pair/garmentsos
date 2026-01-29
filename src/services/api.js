@@ -21,7 +21,7 @@ api.interceptors.response.use(
   (error) => {
     const status = error.response?.status;
 
-    // 401: Token Expired / Invalid
+    // 401: Unauthorized -> Force Logout
     if (status === 401) {
       localStorage.removeItem('token');
       if (window.location.pathname !== '/login') {
@@ -29,8 +29,7 @@ api.interceptors.response.use(
       }
     }
 
-    // 403: Forbidden / Expired (Hamara case)
-    // Hum yahan se reject karenge taake Context ise handle kare
+    // 403: Forbidden (Subscription Expired logic handled in Context)
     return Promise.reject(error);
   }
 );

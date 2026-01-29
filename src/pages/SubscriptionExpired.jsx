@@ -61,7 +61,7 @@ const SubscriptionExpired = () => {
                 onClick={logout}
                 icon={LogOut}
               >
-                Sign out of {config?.companyName}
+                Sign out
               </Button>
             </div>
           </div>

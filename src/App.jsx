@@ -33,9 +33,10 @@ const ProtectedRoute = ({ children, requireDeveloper = false }) => {
 };
 
 function App() {
-  const { isExpired, loading: configLoading } = useConfig();
+  const { isExpired, loading: configLoading, config } = useConfig();
 
   if (configLoading) return <PageLoader />;
+  
   if (isExpired) return <SubscriptionExpired />;
 
   return (

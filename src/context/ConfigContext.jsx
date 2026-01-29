@@ -16,56 +16,50 @@ export const ConfigProvider = ({ children }) => {
   const [isExpired, setIsExpired] = useState(false);
 
   const loadConfig = useCallback(async () => {
-    const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
+  if (!token) {
+    setLoading(false);
+    return;
+  }
+
+  try {
+    const [configRes, optionsRes] = await Promise.all([
+      api.get('/config'),
+      api.get('/options')
+    ]);
     
-    // Check if token exists before making calls to avoid 403
-    if (!token) {
-      setLoading(false);
-      return;
-    }
+    setConfig(configRes.data.data);
+    setOptions(optionsRes.data.data);
+    
+    const expiryDate = new Date(configRes.data.data.subscriptionExpiry);
+    if (new Date() > expiryDate) setIsExpired(true);
 
-    try {
-      const [configRes, optionsRes] = await Promise.all([
-        api.get('/config'),
-        api.get('/options')
-      ]);
+  } catch (error) {
+    // Console mein error dikhega (Red color mein), wo normal hai.
+    // Hum sirf data extract karenge.
+    if (error.response?.status === 403) {
+      setIsExpired(true);
       
-      const configData = configRes.data.data;
-      setConfig(configData);
-      setOptions(optionsRes.data.data);
+      // Backend se jo 403 wala response aaya wo yahan error.response.data mein hai
+      const expiredData = error.response.data;
       
-      const expiryDate = new Date(configData.subscriptionExpiry);
-      setIsExpired(new Date() > expiryDate);
-    } catch (error) {
-      // Backend says 403? Subscription expired logic here
-      if (error.response?.status === 403) {
-        setIsExpired(true);
-        // Important: Set partial config if backend provides it even on 403
-        if (error.response.data?.data) {
-           setConfig(error.response.data.data);
-        }
+      if (expiredData && (expiredData.data || expiredData.expiredOn)) {
+        setConfig({
+          subscriptionExpiry: expiredData.data?.subscriptionExpiry || expiredData.expiredOn,
+          companyName: expiredData.data?.companyName || 'Your System'
+        });
       }
-      console.error('Config Load Error:', error.response?.status);
-    } finally {
-      setLoading(false);
     }
-  }, []);
+    console.warn("System in Lockdown Mode: Subscription Expired.");
+  } finally {
+    setLoading(false);
+  }
+}, []);
 
-  useEffect(() => {
-    loadConfig();
-  }, [loadConfig]);
-
-  const refreshOptions = useCallback(async () => {
-    try {
-      const response = await api.get('/options');
-      setOptions(response.data.data);
-    } catch (error) {
-      console.error('Failed to refresh options:', error);
-    }
-  }, []);
+  useEffect(() => { loadConfig(); }, [loadConfig]);
 
   return (
-    <ConfigContext.Provider value={{ config, options, loading, isExpired, loadConfig, refreshOptions }}>
+    <ConfigContext.Provider value={{ config, options, loading, isExpired, loadConfig }}>
       {children}
     </ConfigContext.Provider>
   );
