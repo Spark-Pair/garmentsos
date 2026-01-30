@@ -106,7 +106,7 @@ const Articles = () => {
                     <div className="flex justify-center gap-2">
                       <button 
                         onClick={() => navigate(`view/${article.id}`)}
-                        className="p-1.5 text-blue-500 hover:text-blue-600 transition-all duration-300"
+                        className="p-1.5 text-indigo-500 hover:text-indigo-600 transition-all duration-300"
                       >
                         <Eye size={18} />
                       </button>

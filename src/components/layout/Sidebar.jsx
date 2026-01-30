@@ -46,14 +46,14 @@ const Sidebar = () => {
       >
         {/* 1. Logo Section */}
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center shadow-sm shadow-blue-100">
+          <div className="w-11 h-11 bg-indigo-600 rounded-xl flex items-center justify-center shadow-sm shadow-indigo-100">
             <Shirt size={21} className="text-white" />
           </div>
           <div>
             <h1 className="font-bold text-slate-900 text-lg leading-tight tracking-tight">
-              {config?.companyName || 'SparkPair'}
+              GarmentsOS
             </h1>
-            <p className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">GarmentsOS</p>
+            <p className="text-[11px] font-medium text-slate-400 uppercase tracking-widest">{config.developer.powered_by || 'SparkPair'}</p>
           </div>
         </div>
 
@@ -67,7 +67,7 @@ const Sidebar = () => {
               to={item.path}
               className={({ isActive }) => `
                 relative flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group
-                ${isActive ? 'text-blue-600 bg-blue-100 hover:bg-blue-200' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}
+                ${isActive ? 'text-indigo-600 bg-indigo-100 hover:bg-indigo-200' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}
               `}
             >
               <item.icon size={20} className="transition-colors" />
@@ -115,7 +115,7 @@ const Sidebar = () => {
             onClick={() => setShowUserMenu(!showUserMenu)}
             className="w-full flex items-center gap-3 p-3 pr-5 rounded-2xl bg-slate-100 hover:bg-slate-200 transition-all duration-300 shadow-sm"
           >
-            <div className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+            <div className="w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
               {getInitials(user?.name)}
             </div>
             <div className="flex-1 text-left overflow-hidden">

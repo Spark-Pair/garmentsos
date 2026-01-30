@@ -14,7 +14,7 @@ const Input = forwardRef(({
       )}
       <div className="relative group">
         {LeftIcon && (
-          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors">
+          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors">
             <LeftIcon size={18} />
           </div>
         )}
@@ -24,7 +24,7 @@ const Input = forwardRef(({
           className={`
             w-full px-4 py-2.5 bg-white border-2 border-slate-200 rounded-xl
             text-slate-900 placeholder-slate-400 font-medium
-            focus:outline-none focus:ring-4 focus:ring-blue-50 focus:border-blue-600
+            focus:outline-none focus:ring-4 focus:ring-indigo-50 focus:border-indigo-600
             transition-all duration-200
             disabled:cursor-not-allowed
             ${LeftIcon ? 'pl-11' : ''}

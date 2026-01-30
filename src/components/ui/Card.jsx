@@ -65,7 +65,7 @@ export const MetricTile = ({ label, value, icon: Icon, variant = "default" }) =>
     default: "bg-white border-slate-300 text-slate-900",
     success: "bg-emerald-100 border-emerald-300 text-emerald-800",
     warning: "bg-amber-100 border-amber-300 text-amber-800",
-    info: "bg-blue-100 border-blue-300 text-blue-800",
+    info: "bg-indigo-100 border-indigo-300 text-indigo-800",
   };
   
   return (

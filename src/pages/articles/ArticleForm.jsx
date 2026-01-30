@@ -237,7 +237,7 @@ const ArticleForm = () => {
           {/* Right Sidebar: Dynamic Summary */}
           <aside className="lg:col-span-4 grid gap-5">
             <div className="bg-slate-900 rounded-3xl p-6 text-white relative overflow-hidden">
-              <p className="text-[12px] font-semibold uppercase text-blue-500 mb-6 tracking-widest text-center border-b border-slate-700 pb-4">Live Analysis</p>
+              <p className="text-[12px] font-semibold uppercase text-indigo-500 mb-6 tracking-widest text-center border-b border-slate-700 pb-4">Live Analysis</p>
               <div>
                 <Stat label="Production Cost" value={`Rs. ${total_cost.toLocaleString()}`} />
                 <Stat label="Projected Profit" value={`Rs. ${profit.toLocaleString()}`} color={profit > 0 ? "text-emerald-400" : "text-red-400"} />
@@ -248,7 +248,7 @@ const ArticleForm = () => {
               </div>
             </div>
             
-            <div className="bg-blue-600 rounded-3xl p-6 text-white flex items-center gap-4">
+            <div className="bg-indigo-600 rounded-3xl p-6 text-white flex items-center gap-4">
               <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center"><Hash size={24}/></div>
               <div>
                   <p className="text-[11px] font-semibold uppercase opacity-70 tracking-wide">Status</p>

@@ -22,7 +22,7 @@ const SearchInput = ({
         className="
           w-full pl-10 pr-10 py-2 bg-white border border-slate-300 rounded-lg
           text-slate-900 placeholder-slate-400
-          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+          focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
           transition-all duration-150
         "
       />

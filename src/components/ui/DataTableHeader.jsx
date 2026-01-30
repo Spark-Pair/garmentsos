@@ -18,7 +18,7 @@ export default function DataTableHeader({ columns, sort, onSort }) {
               key={col.key}
               onClick={() => col.sortable && onSort(col.key)}
               className={`px-6 py-4 text-[11px] font-bold uppercase tracking-wider text-slate-500 
-                ${col.sortable ? "cursor-pointer hover:text-blue-600 transition-colors select-none" : ""} 
+                ${col.sortable ? "cursor-pointer hover:text-indigo-600 transition-colors select-none" : ""} 
                 ${alignmentClass}`} // text-center yahan apply hoga
             >
               {/* flex container mein alignmentClass pass ki hai justify handle karne ke liye */}
@@ -26,8 +26,8 @@ export default function DataTableHeader({ columns, sort, onSort }) {
                 {col.label}
                 {col.sortable && (
                   <div className="flex flex-col opacity-60">
-                    <ChevronUp size={10} className={isActive && sort.order === 'asc' ? 'text-blue-600 opacity-100' : ''} />
-                    <ChevronDown size={10} className={isActive && sort.order === 'desc' ? 'text-blue-600 opacity-100' : ''} />
+                    <ChevronUp size={10} className={isActive && sort.order === 'asc' ? 'text-indigo-600 opacity-100' : ''} />
+                    <ChevronDown size={10} className={isActive && sort.order === 'desc' ? 'text-indigo-600 opacity-100' : ''} />
                   </div>
                 )}
               </div>

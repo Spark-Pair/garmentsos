@@ -21,8 +21,8 @@ export const showToast = {
 
   info: (msg) => toast.info(msg, {
     ...toastConfig,
-    icon: <Info className="text-blue-500" size={20} />,
-    className: 'border-l-4 border-l-blue-500'
+    icon: <Info className="text-indigo-500" size={20} />,
+    className: 'border-l-4 border-l-indigo-500'
   }),
 
   warn: (msg) => toast.warn(msg, {

@@ -42,7 +42,7 @@ export function DataTablePagination({ pagination, onPageChange }) {
             max={totalPages}
             onChange={handleInputChange}
             onClick={(e) => {e.target.select()}}
-            className="w-12 h-8 text-center border border-slate-200 rounded-lg bg-white text-slate-900 font-bold focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+            className="w-12 h-8 text-center border border-slate-200 rounded-lg bg-white text-slate-900 font-bold focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
           />
           <span className="text-xs uppercase tracking-tight leading-none opacity-80">of {totalPages || 0}</span>
         </div>

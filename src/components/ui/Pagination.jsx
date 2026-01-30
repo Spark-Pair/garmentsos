@@ -61,7 +61,7 @@ const Pagination = ({
                 className={`
                   min-w-[36px] h-9 px-3 rounded-lg text-sm font-medium transition-colors
                   ${page === currentPage
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-indigo-600 text-white'
                     : 'text-slate-600 hover:bg-slate-200'
                   }
                 `}

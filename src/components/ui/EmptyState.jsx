@@ -34,7 +34,7 @@ export default function EmptyState({
           {isFiltering && onReset && (
             <button 
               onClick={onReset}
-              className="px-6 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold uppercase tracking-widest text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-all shadow-sm"
+              className="px-6 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold uppercase tracking-widest text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-all shadow-sm"
             >
               Reset All Filters
             </button>

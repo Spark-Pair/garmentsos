@@ -39,7 +39,7 @@ const Login = () => {
       
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-40">
-        <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-blue-100 rounded-full blur-[120px]" />
+        <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-indigo-100 rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-slate-200 rounded-full blur-[120px]" />
       </div>
 
@@ -54,7 +54,7 @@ const Login = () => {
           <div className="p-8 md:p-10 overflow-hidden relative">
             {/* Logo Section */}
             <div className="flex flex-col items-center text-center mb-10">
-              <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-sm shadow-blue-100 mb-3">
+              <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-sm shadow-indigo-100 mb-3">
                 <Shirt size={26} className="text-white" />
               </div>
               <h1 className="text-xl font-black text-slate-900 uppercase tracking-tighter">GarmentsOS</h1>
@@ -114,7 +114,7 @@ const Login = () => {
 
             {/* Bottom Support Tag */}
             <div className="mt-8 flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-100 border border-slate-300 rounded-xl">
-              <ShieldCheck size={14} className="text-blue-500" />
+              <ShieldCheck size={14} className="text-indigo-500" />
               <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Secure System</span>
             </div>
           </div>

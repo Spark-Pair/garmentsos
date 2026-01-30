@@ -28,7 +28,7 @@ const Textarea = forwardRef(({
         className={`
           w-full px-4 py-2.5 bg-white border-2 border-slate-200 rounded-2xl
           text-slate-900 font-medium placeholder-slate-400
-          focus:outline-none focus:ring-4 focus:ring-blue-50 focus:border-blue-600
+          focus:outline-none focus:ring-4 focus:ring-indigo-50 focus:border-indigo-600
           transition-all duration-200
           disabled:cursor-not-allowed
           resize-none

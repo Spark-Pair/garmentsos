@@ -92,7 +92,7 @@ const SupportLink = ({ icon: Icon, label, value, href }) => (
       <Icon size={16} className="text-slate-400 group-hover:text-slate-600 transition-all duraion-300" />
       <span className="text-xs font-bold text-slate-600">{label}</span>
     </div>
-    <span className="text-xs font-medium text-slate-400 group-hover:text-blue-600 transition-all duraion-300">{value}</span>
+    <span className="text-xs font-medium text-slate-400 group-hover:text-indigo-600 transition-all duraion-300">{value}</span>
   </a>
 );
 

@@ -75,10 +75,10 @@ const Settings = () => {
               </div>
               
               <div className="p-3">
-                <InfoRow icon={MapPin} label="Physical Address" value={config?.companyAddress} color="red" />
-                <InfoRow icon={Phone} label="Primary Line" value={config?.companyPhone} color="emerald" />
-                <InfoRow icon={Mail} label="Billing Inquiries" value={config?.companyEmail} color="blue" />
-                <InfoRow icon={CreditCard} label="License Expiry" value={config?.subscriptionExpiry} color="purple" />
+                <InfoRow icon={MapPin} label="Physical Address" value={config.company.address} color="red" />
+                <InfoRow icon={Phone} label="Primary Line" value={config.company.phone} color="emerald" />
+                <InfoRow icon={Mail} label="Billing Inquiries" value={config.company.email} color="indigo" />
+                <InfoRow icon={CreditCard} label="License Expiry" value={config.license.expiry} color="purple" />
               </div>
             </div>
 
@@ -95,7 +95,7 @@ const Settings = () => {
                   </div>
                 </div>
                 {/* Decorative Glow */}
-                <div className="absolute -right-10 -bottom-10 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl" />
+                <div className="absolute -right-10 -bottom-10 w-32 h-32 bg-indigo-500/20 rounded-full blur-3xl" />
               </div>
               
               <div className="p-4 space-y-3">
@@ -104,13 +104,13 @@ const Settings = () => {
                       <span className="text-xl font-black text-slate-900 leading-none">S<span className="text-amber-500">P</span></span>
                   </div>
                   <div>
-                      <p className="text-sm font-semibold leading-tight">SparkPair Technologies</p>
+                      <p className="text-sm font-semibold leading-tight">SparkPair</p>
                       <p className="text-[11px] font-medium uppercase tracking-widest text-slate-500">Industrial Software Core</p>
                   </div>
                 </div>
 
                 <div>
-                  <InfoRow icon={Globe} label="Digital Presence" value="www.sparkpair.dev" color="blue" />
+                  <InfoRow icon={Globe} label="Digital Presence" value="www.sparkpair.dev" color="indigo" />
                   <InfoRow icon={Award} label="Core Version" value="v2.4.0 • Enterprise" color="emerald" />
                 </div>
 
@@ -200,7 +200,7 @@ const Settings = () => {
 
 const InfoRow = ({ icon: Icon, label, value, color }) => {
   const colors = {
-    blue: 'bg-blue-100 text-blue-600 border-blue-200',
+    indigo: 'bg-indigo-100 text-indigo-600 border-indigo-200',
     red: 'bg-red-100 text-red-600 border-red-200',
     emerald: 'bg-emerald-100 text-emerald-600 border-emerald-200',
     purple: 'bg-purple-100 text-purple-600 border-purple-200',

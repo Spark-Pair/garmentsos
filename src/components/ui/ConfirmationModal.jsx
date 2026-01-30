@@ -25,8 +25,8 @@ export default function ConfirmationModal({
     },
     info: {
       icon: HelpCircle,
-      color: 'text-blue-600',
-      bg: 'bg-blue-100'
+      color: 'text-indigo-600',
+      bg: 'bg-indigo-100'
     }
   }[type] || config.danger;
 

@@ -175,7 +175,7 @@ const ConfigCard = ({ type, data = [], onAdd, onEdit, onDelete, searchTerm }) =>
                   <span className="text-[14px] font-bold text-slate-500 group-hover/item:text-slate-900">{item}</span>
                 </div>
                 <div className="flex gap-1 opacity-0 group-hover/item:opacity-100 translate-x-5 group-hover/item:translate-x-1 transition-all">
-                  <button onClick={() => onEdit(idx, item)} className="p-2 text-slate-500 hover:text-blue-600 hover:bg-white rounded-xl transition-all duration-300"><Edit2 size={14} /></button>
+                  <button onClick={() => onEdit(idx, item)} className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-white rounded-xl transition-all duration-300"><Edit2 size={14} /></button>
                   <button onClick={() => onDelete(idx)} className="p-2 text-slate-500 hover:text-red-600 hover:bg-white rounded-xl transition-all duration-300"><Trash2 size={14} /></button>
                 </div>
               </div>

@@ -51,7 +51,7 @@ const Dashboard = () => {
         >
           {/* 1. Stats Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <StatCard icon={Package} label="Total Articles" value={stats?.totalArticles || 0} color="text-blue-600" />
+            <StatCard icon={Package} label="Total Articles" value={stats?.totalArticles || 0} color="text-indigo-600" />
             <StatCard icon={TrendingUp} label="Avg. Margin" value={`${(stats?.summary?.avgProfitMargin || 0).toFixed(1)}%`} color="text-amber-600" />
           </div>
 
@@ -106,13 +106,13 @@ const Dashboard = () => {
               </div>
 
               <div className="border border-slate-300 rounded-3xl p-1.5 bg-white">
-                <div className="bg-blue-100 rounded-2xl p-4 flex items-center gap-4 border border-blue-200">
-                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-blue-600 border border-blue-300 shadow-sm">
+                <div className="bg-indigo-100 rounded-2xl p-4 flex items-center gap-4 border border-indigo-200">
+                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-indigo-600 border border-indigo-300 shadow-sm">
                     <ShieldCheck size={20} />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black text-blue-900 uppercase tracking-widest leading-none mb-1">Developed by SparkPair</p>
-                    <a href='https://www.sparkpair.dev/' target='_blank' className="text-[10px] font-medium text-blue-700/80 uppercase">www.SparkPair.dev</a>
+                    <p className="text-[10px] font-black text-indigo-900 uppercase tracking-widest leading-none mb-1">Developed by SparkPair</p>
+                    <a href='https://www.sparkpair.dev/' target='_blank' className="text-[10px] font-medium text-indigo-700/80 uppercase">www.SparkPair.dev</a>
                   </div>
                 </div>
               </div>

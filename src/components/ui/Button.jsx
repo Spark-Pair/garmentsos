@@ -2,7 +2,7 @@ import React from 'react';
 import { Loader2 } from 'lucide-react';
 
 const variants = {
-  primary: 'bg-blue-600 enabled:hover:bg-blue-700 text-white shadow-sm',
+  primary: 'bg-indigo-600 enabled:hover:bg-indigo-700 text-white shadow-sm',
   secondary: 'bg-slate-100 enabled:hover:bg-slate-200 text-slate-700 border border-slate-200',
   dark: 'bg-slate-900 enabled:hover:bg-slate-700 text-slate-100',
   danger: 'bg-red-600 enabled:hover:bg-red-700 text-white shadow-sm',
