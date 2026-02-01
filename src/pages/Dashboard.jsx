@@ -21,7 +21,7 @@ const Dashboard = () => {
     try {
       const [statsRes, articlesRes] = await Promise.all([
         articlesAPI.getStats(),
-        articlesAPI.getAll({ limit: 6, sortBy: 'createdAt', order: 'desc' })
+        articlesAPI.getAll({ limit: 6, sortBy: 'created_at', order: 'desc' })
       ]);
       setStats(statsRes.data.data);
       setRecentArticles(articlesRes.data.data);

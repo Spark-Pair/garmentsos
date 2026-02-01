@@ -57,7 +57,7 @@ const ArticleView = () => {
             </div>
             <div className="text-right">
               <h2 className="text-xl font-bold leading-none">{article.article_no}</h2>
-              <p className="text-[9px] font-medium uppercase text-slate-600">{article.season} Collection</p>
+              <p className="text-[9px] font-medium uppercase text-slate-600">Fabric: {article.fabric_type}</p>
             </div>
           </div>
 
@@ -68,8 +68,8 @@ const ArticleView = () => {
               <span className="text-[11px] font-semibold leading-none">{article.category}</span>
             </div>
             <div className="px-3 pt-2.5 pb-2 bg-slate-100 border border-slate-400 rounded-lg">
-              <span className="block text-[8px] font-bold uppercase text-slate-600 leading-none">Fabric</span>
-              <span className="text-[11px] font-semibold leading-none">{article.fabric_type}</span>
+              <span className="block text-[8px] font-bold uppercase text-slate-600 leading-none">Season</span>
+              <span className="text-[11px] font-semibold leading-none">{article.season}</span>
             </div>
             <div className="px-3 pt-2.5 pb-2 bg-slate-100 border border-slate-400 rounded-lg">
               <span className="block text-[8px] font-bold uppercase text-slate-600 leading-none">Ratio</span>
@@ -85,16 +85,14 @@ const ArticleView = () => {
           <table className="w-full mb-5 border-collapse">
             <thead>
               <tr className="text-white text-[9px] uppercase tracking-wider">
-                <th className="px-3 py-2 bg-black rounded-s-md text-left">Category</th>
-                <th className="px-3 py-2 bg-black text-left">Description</th>
+                <th className="px-3 py-2 bg-black rounded-s-md text-left">Description</th>
                 <th className="px-3 py-2 bg-black rounded-e-md text-right">Price (PKR)</th>
               </tr>
             </thead>
             <tbody className="text-[11px]">
               {article.rates?.map((rate, i) => (
                 <tr key={i} className="border-b border-slate-300">
-                  <td className="px-3 py-1.5 font-bold uppercase text-slate-600 text-[8px]">{rate.category}</td>
-                  <td className="px-3 py-1.5 font-semibold text-slate-700">{rate.title}</td>
+                  <td className="px-3 py-1.5 font-bold uppercase text-slate-600 text-[8px]">{rate.description}</td>
                   <td className="px-3 py-1.5 text-right font-bold tracking-tight">Rs. {rate.price.toLocaleString()}</td>
                 </tr>
               ))}
@@ -212,13 +210,33 @@ const ArticleView = () => {
                 </div>
 
                 {hasAnyRates ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-                    {['fabric', 'work', 'accessory', 'labor'].map(cat => (
-                      <BreakdownGroup key={cat} type={cat} data={article.rates || []} />
+                  <div className="space-y-3">
+                    {/* Total Row */}
+                    <div className="flex justify-between items-center px-4 py-3.5 bg-slate-800 text-white rounded-xl mt-6">
+                      <span className="text-sm font-bold uppercase tracking-wider">Total Production Cost</span>
+                      <span className="text-xl font-black">Rs. {article.total_cost.toLocaleString()}</span>
+                    </div>
+
+                    <hr className='border-slate-400' />
+
+                    {article.rates.map((item, i) => (
+                      <div 
+                        key={i} 
+                        className="flex justify-between items-center p-2 hover:bg-slate-100 transition-all duration-300 rounded-2xl border border-slate-300 hover:border-slate-400 group"
+                      >
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-lg bg-slate-100 border border-slate-300 flex items-center justify-center group-hover:bg-white transition-all duration-300">
+                            <span className="text-sm font-bold text-slate-500">{i + 1}</span>
+                          </div>
+                          <span className="text-sm font-semibold text-slate-700">{item.description}</span>
+                        </div>
+                        <span className="text-base font-semibold text-slate-900 bg-slate-100 px-4 py-2 rounded-lg border border-slate-300 group-hover:bg-white transition-all duration-300">
+                          Rs. {item.price.toLocaleString()}
+                        </span>
+                      </div>
                     ))}
                   </div>
                 ) : (
-                  /* Entire Section Empty State */
                   <div className="flex flex-col items-center justify-center py-12 border-2 border-dashed border-slate-300 rounded-2xl bg-slate-100">
                     <div className="p-4 bg-white rounded-2xl border border-slate-300 mb-4">
                       <Activity className="text-slate-500" size={32} />
@@ -240,7 +258,7 @@ const ArticleView = () => {
                   <SidebarItem icon={Layers} label="Fabric Type" value={article.fabric_type} />
                   <SidebarItem icon={Box} label="Size Ratio" value={article.size} />
                   <SidebarItem icon={Calendar} label="Quantity" value={`${article.quantity} - pcs.`} />
-                  <SidebarItem icon={Calendar} label="Created On" value={new Date(article.createdAt).toLocaleDateString('en-PK', { day: '2-digit', month: 'short', year: 'numeric' })} />
+                  <SidebarItem icon={Calendar} label="Created On" value={new Date(article.created_at).toLocaleDateString('en-PK', { day: '2-digit', month: 'short', year: 'numeric' })} />
                 </div>
               </div>
               

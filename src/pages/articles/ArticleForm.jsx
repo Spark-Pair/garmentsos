@@ -7,287 +7,6 @@ import { articlesAPI } from '../../services/api';
 import { useConfig } from '../../context/ConfigContext';
 import { Button, Input, PageHeader, Select, Textarea } from '../../components/ui';
 
-// Simplest Quantity Input - Two Inputs Auto-Sync
-const QuantityInput = ({ label, value, onChange, onEnter }) => {
-  const [piecesInput, setPiecesInput] = useState('');
-  const [dozenInput, setDozenInput] = useState('');
-  const [lastEdited, setLastEdited] = useState('pieces');
-
-  // Update inputs when value prop changes (from parent or initial load)
-  useEffect(() => {
-    const totalPieces = parseInt(value) || 0;
-    if (totalPieces > 0 && lastEdited === 'pieces') {
-      setPiecesInput(totalPieces.toString());
-      setDozenInput((totalPieces / 12).toFixed(2));
-    }
-  }, [value, lastEdited]);
-
-  const handlePiecesChange = (e) => {
-    const val = e.target.value;
-    if (val === '' || /^\d+$/.test(val)) {
-      setPiecesInput(val);
-      setLastEdited('pieces');
-      const pieces = parseInt(val) || 0;
-      setDozenInput(pieces ? (pieces / 12).toFixed(2) : '');
-      onChange({ target: { value: val } });
-    }
-  };
-
-  const handleDozenChange = (e) => {
-    const val = e.target.value;
-    // Allow empty, numbers, and decimal point
-    if (val === '' || /^\d*\.?\d*$/.test(val)) {
-      setDozenInput(val);
-      setLastEdited('dozen');
-      
-      // Only calculate pieces if we have a valid number
-      if (val && !val.endsWith('.')) {
-        const dozen = parseFloat(val);
-        if (!isNaN(dozen)) {
-          const pieces = Math.round(dozen * 12);
-          setPiecesInput(pieces.toString());
-          onChange({ target: { value: pieces.toString() } });
-        }
-      } else if (val === '') {
-        setPiecesInput('');
-        onChange({ target: { value: '0' } });
-      }
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      onEnter?.();
-    }
-  };
-
-  return (
-    <div className="">
-      {label && (
-        <label className="block text-[14px] font-semibold text-slate-700 mb-1 ml-1">
-          {label}
-        </label>
-      )}
-      
-      <div className="grid grid-cols-2 gap-3">
-        {/* Pieces Input */}
-        <div>
-          <Input
-            type="text"
-            value={piecesInput}
-            onChange={handlePiecesChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Pices"
-          />
-        </div>
-
-        {/* Dozen Input */}
-        <div>
-          <Input
-            type="text"
-            value={dozenInput}
-            onChange={handleDozenChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Dorzen"
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Smart Calculator Input Component
-const CalculatorInput = ({ label, value, onChange, placeholder, onEnter }) => {
-  const [displayValue, setDisplayValue] = useState(value || '');
-  const [isCalculating, setIsCalculating] = useState(false);
-  const [calculationHistory, setCalculationHistory] = useState([]);
-  const [showHistory, setShowHistory] = useState(false);
-
-  useEffect(() => {
-    setDisplayValue(value || '');
-  }, [value]);
-
-  const handleChange = (e) => {
-    const val = e.target.value;
-    setDisplayValue(val);
-    
-    // Check if user pressed '=' to calculate
-    if (val.includes('=')) {
-      const expression = val.split('=')[0].trim();
-      try {
-        setIsCalculating(true);
-        // Safe evaluation - only allow numbers and basic operators
-        const sanitized = expression.replace(/[^0-9+\-*/.() ]/g, '');
-        const result = Function(`'use strict'; return (${sanitized})`)();
-        
-        if (!isNaN(result) && isFinite(result)) {
-          const rounded = Math.round(result * 100) / 100;
-          
-          // Add to history
-          setCalculationHistory(prev => [...prev, {
-            expression: expression,
-            result: rounded,
-            timestamp: new Date().toLocaleTimeString()
-          }]);
-          
-          setDisplayValue(rounded.toString());
-          onChange(rounded.toString());
-        }
-      } catch (err) {
-        toast.error('Invalid calculation');
-      } finally {
-        setIsCalculating(false);
-      }
-    } else {
-      onChange(val);
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    // F2 to show/hide calculation history
-    if (e.key === 'F2') {
-      e.preventDefault();
-      setShowHistory(!showHistory);
-      return;
-    }
-    
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      
-      // If there's a calculation to perform (no = sign yet)
-      if (displayValue && !displayValue.includes('=')) {
-        const expression = displayValue.trim();
-        try {
-          setIsCalculating(true);
-          // Safe evaluation - only allow numbers and basic operators
-          const sanitized = expression.replace(/[^0-9+\-*/.() ]/g, '');
-          
-          // If it's just a number, move to next field
-          if (/^\d+\.?\d*$/.test(sanitized)) {
-            if (onEnter) onEnter();
-            return;
-          }
-          
-          const result = Function(`'use strict'; return (${sanitized})`)();
-          
-          if (!isNaN(result) && isFinite(result)) {
-            const rounded = Math.round(result * 100) / 100;
-            
-            // Add to history
-            setCalculationHistory(prev => [...prev, {
-              expression: expression,
-              result: rounded,
-              timestamp: new Date().toLocaleTimeString()
-            }]);
-            
-            setDisplayValue(rounded.toString());
-            onChange(rounded.toString());
-          }
-        } catch (err) {
-          // If calculation fails, just move to next field
-          if (onEnter) onEnter();
-        } finally {
-          setIsCalculating(false);
-        }
-      } else {
-        // If already calculated or just a number, move to next field
-        if (onEnter) onEnter();
-      }
-    }
-  };
-
-  return (
-    <div className="flex flex-col gap-1.5 relative">
-      {label && (
-        <label className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-          {label}
-        </label>
-      )}
-      {/* <input
-        type="text"
-        value={displayValue}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder={placeholder || "Enter value or calculation (e.g., 59*4/36 then Enter)"}
-        className={`px-4 py-3 rounded-xl border-2 transition-all duration-200 font-mono ${
-          isCalculating 
-            ? 'border-blue-400 bg-blue-50' 
-            : 'border-slate-300 bg-white hover:border-slate-400 focus:border-slate-900 focus:outline-none'
-        }`}
-      /> */}
-      <Input
-        type="text"
-        value={displayValue}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder={placeholder || "Enter value or calculation (e.g., 59*4/36 then Enter)"}
-        className={isCalculating 
-            ? 'border-blue-400 bg-blue-50' 
-            : ''
-        }
-      />
-
-      {/* Calculation History Dropdown */}
-      <AnimatePresence>
-        {showHistory && calculationHistory.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-300 rounded-xl shadow-lg z-50 max-h-64 overflow-y-auto"
-          >
-            <div className="p-3 border-b border-slate-200 bg-slate-50">
-              <div className="flex items-center justify-between">
-                <p className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                  Calculation History
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setCalculationHistory([])}
-                  className="text-[10px] text-red-600 hover:text-red-800 font-bold uppercase"
-                >
-                  Clear
-                </button>
-              </div>
-            </div>
-            <div className="divide-y divide-slate-100">
-              {calculationHistory.slice().reverse().map((calc, idx) => (
-                <div
-                  key={idx}
-                  className="p-3 hover:bg-slate-50 transition-colors cursor-pointer"
-                  onClick={() => {
-                    setDisplayValue(calc.result.toString());
-                    onChange(calc.result.toString());
-                    setShowHistory(false);
-                  }}
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs font-mono text-slate-600 truncate">
-                        {calc.expression}
-                      </p>
-                      <p className="text-[10px] text-slate-400 mt-0.5">
-                        {calc.timestamp}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-slate-400">=</span>
-                      <span className="text-sm font-bold text-slate-900 font-mono">
-                        {calc.result.toLocaleString()}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
-
 const ArticleForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -411,18 +130,6 @@ const ArticleForm = () => {
     step2Refs.costDescription.current?.focus();
   };
 
-  // Handle keyboard navigation
-  const handleStepKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      if (step < 3) {
-        setStep(step + 1);
-      } else {
-        handleSubmit();
-      }
-    }
-  };
-
   // Form submission
   const handleSubmit = async () => {
     if (!formData.article_no || !formData.season || !formData.size || !formData.category || !formData.fabric_type || !formData.sales_rate) {
@@ -531,16 +238,16 @@ const ArticleForm = () => {
                         placeholder="Enter fabric type"  
                         value={formData.fabric_type} 
                         onChange={(e) => setFormData({ ...formData, fabric_type: e.target.value })}
-                        onEnter={() => step1Refs.quantity.current?.querySelector('input')?.focus()}
+                        onEnter={() => step1Refs.quantity.current?.focus()}
                       />
-                      <div ref={step1Refs.quantity}>
-                        <QuantityInput
-                          label="Quantity"
-                          value={formData.quantity}
-                          onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                          onEnter={() => step1Refs.description.current?.focus()}
-                        />
-                      </div>
+                      <Input
+                        ref={step1Refs.quantity}
+                        variant="quantity"
+                        label="Quantity"
+                        value={formData.quantity}
+                        onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
+                        onEnter={() => step1Refs.description.current?.focus()}
+                      />
                       <div className="md:col-span-2">
                         <Textarea 
                           ref={step1Refs.description}
@@ -576,18 +283,18 @@ const ArticleForm = () => {
                             placeholder="e.g., Fabric - Cotton, Labor - Cutting"
                             value={currentRate.description}
                             onChange={(e) => setCurrentRate({ ...currentRate, description: e.target.value })}
-                            onEnter={() => step2Refs.costPrice.current?.querySelector('input')?.focus()}
+                            onEnter={() => step2Refs.costPrice.current?.focus()}
                           />
                           
-                          <div ref={step2Refs.costPrice}>
-                            <CalculatorInput
-                              label="Price (PKR)"
-                              value={currentRate.price}
-                              onChange={(val) => setCurrentRate({ ...currentRate, price: val })}
-                              placeholder="Enter price or calculate"
-                              onEnter={handleAddCost}
-                            />
-                          </div>
+                          <Input
+                            ref={step2Refs.costPrice}
+                            variant="calculator"
+                            label="Price (PKR)"
+                            value={currentRate.price}
+                            onChange={(val) => setCurrentRate({ ...currentRate, price: val })}
+                            placeholder="Enter price or calculate"
+                            onEnter={handleAddCost}
+                          />
                         </div>
                         
                         <Button 
@@ -596,6 +303,7 @@ const ArticleForm = () => {
                           variant='dark' 
                           className="w-full" 
                           icon={Plus}
+                          tabIndex={-1}
                         >
                           Add Cost (Enter)
                         </Button>
@@ -610,14 +318,15 @@ const ArticleForm = () => {
                                 className="flex justify-between items-center px-5 py-2.5 bg-white border border-slate-300 rounded-2xl hover:border-slate-400 transition-all"
                               >
                                 <div>
-                                  <p className="text-sm font-bold text-slate-800">{item.description}</p>
+                                  <p className="text-sm font-semibold text-slate-800">{item.description}</p>
                                 </div>
                                 <div className="flex items-center gap-4">
-                                  <span className="font-bold">Rs. {item.price.toLocaleString()}</span>
+                                  <span className="font-semibold">Rs. {item.price.toLocaleString()}</span>
                                   <button 
                                     onClick={() => setRates(rates.filter((_, idx) => idx !== i))} 
                                     className="text-red-500 p-2 hover:bg-red-100 rounded-lg transition-all duration-300"
                                     aria-label="Delete cost item"
+                                    tabIndex={-1}
                                   >
                                     <Trash2 size={16} />
                                   </button>
@@ -629,7 +338,8 @@ const ArticleForm = () => {
                       </div>
 
                       <div className="bg-slate-200/65 p-5 rounded-2xl border border-slate-300">
-                        <CalculatorInput
+                        <Input
+                          variant="calculator"
                           label="Sales Rate (PKR)"
                           value={formData.sales_rate}
                           onChange={(val) => setFormData({ ...formData, sales_rate: val })}
@@ -647,7 +357,7 @@ const ArticleForm = () => {
                       initial={{ opacity: 0, x: -20 }} 
                       animate={{ opacity: 1, x: 0 }} 
                       exit={{ opacity: 0, x: 20 }}
-                      className="flex flex-col items-center py-4"
+                      className="flex flex-col items-center justify-center py-4 h-full"
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                           e.preventDefault();
@@ -693,9 +403,6 @@ const ArticleForm = () => {
                           </label>
                         )}
                       </div>
-                      <p className="text-xs text-slate-500 mt-4 italic">
-                        Press Enter or click Continue to {isEdit ? 'update' : 'publish'}
-                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>

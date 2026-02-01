@@ -1,7 +1,7 @@
 // hooks/useTable.js
 import { useState, useCallback, useMemo } from 'react';
 
-export const useTable = (initialFilters = {}, initialSort = { sortBy: 'createdAt', order: 'desc' }) => {
+export const useTable = (initialFilters = {}, initialSort = { sortBy: 'created_at', order: 'desc' }) => {
   const [filters, setFilters] = useState(initialFilters);
   const [tempFilters, setTempFilters] = useState(initialFilters);
   const [sort, setSort] = useState(initialSort);
